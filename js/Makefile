@@ -1,7 +1,7 @@
 BROWSERIFY = ./node_modules/.bin/browserify
 WATCHIFY = ./node_modules/.bin/watchify
 
-APP_JS = ./app.js
+APP_JS = ./index.js
 BUNDLE_DIR = .
 BUNDLE_JS = ${BUNDLE_DIR}/bundle.js
 BROWSERIFY_PARAMS = -t [ babelify --presets [ es2015 react ] ]
@@ -23,4 +23,3 @@ serve:
 clean:
 	rm -rf node_modules
 	rm -f ${BUNDLE_JS}
-
