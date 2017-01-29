@@ -53,7 +53,7 @@ class App extends React.Component{
     onEditUser(editUser){
         let {users} = this.state;
         users = users.map(user => {
-            if(editUser.id === user.id){
+            if (editUser.id === user.id){
                 return editUser;
             }
             return user;
@@ -79,7 +79,7 @@ class App extends React.Component{
 
     addChannel(name){
         //this.socket.emit('channel add', {name});
-    }
+   }
 
     setChannel(activeChannel){
         this.setState({activeChannel});
