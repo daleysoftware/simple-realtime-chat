@@ -8,7 +8,7 @@ GOPATH="$(shell pwd)/.go"
 all: install start
 
 start:
-	cd "${GOPATH}/src/github.com/mpillar/simple-realtime-chat" && export GOPATH="${GOPATH}" && go run color.go
+	cd "${GOPATH}/src/github.com/mpillar/simple-realtime-chat" && export GOPATH="${GOPATH}" && go run *.go
 
 install:
 	mkdir -p "${GOPATH}"/src/github.com/mpillar
