@@ -5,14 +5,14 @@
 
 GOPATH="$(shell pwd)/.go"
 
-all: setup run
+all: install start
 
-run:
+start:
 	cd "${GOPATH}/src/github.com/mpillar/simple-realtime-chat" && export GOPATH="${GOPATH}" && go run color.go
 
-setup:
+install:
 	mkdir -p "${GOPATH}"/src/github.com/mpillar
-	cd "${GOPATH}/src/github.com/mpillar" && ln -s "$(shell pwd)" simple-realtime-chat
+	cd "${GOPATH}/src/github.com/mpillar" && rm -f simple-realtime-chat && ln -s "$(shell pwd)" simple-realtime-chat
 	export GOPATH="${GOPATH}" && go get -u github.com/FiloSottile/gvt
 	export GOPATH="${GOPATH}" && "${GOPATH}"/bin/gvt update -all
 
