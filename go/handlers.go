@@ -40,7 +40,6 @@ func subscribeChannel(client *Client, data interface{}) {
 	}
 
 	go func() {
-
 		var change r.ChangeResponse
 		for cursor.Next(&change) {
 			result <- change
@@ -61,4 +60,8 @@ func subscribeChannel(client *Client, data interface{}) {
 			}
 		}
 	}()
+}
+
+func unsubscribeChannel(client *Client, data interface{}) {
+	client.StopForKey(ChannelStop)
 }

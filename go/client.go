@@ -16,6 +16,7 @@ type Client struct {
 }
 
 func (c *Client) NewStopChannel(stopKey int) chan bool {
+	c.StopForKey(stopKey)
 	stop := make(chan bool)
 	c.stopChannels[stopKey] = stop
 	return stop
@@ -24,6 +25,13 @@ func (c *Client) NewStopChannel(stopKey int) chan bool {
 type Message struct {
 	Name string      `json:"name"`
 	Data interface{} `json:"data"`
+}
+
+func (c *Client) StopForKey(key int) {
+	if ch, found := c.stopChannels[key]; found {
+		ch <- true
+		delete(c.stopChannels, key)
+	}
 }
 
 func (client *Client) Read() {
@@ -47,6 +55,13 @@ func (client *Client) Write() {
 		}
 	}
 	client.socket.Close()
+}
+
+func (c *Client) Close() {
+	for _, ch := range c.stopChannels {
+		ch <- true
+	}
+	close(c.send)
 }
 
 func NewClient(socket *websocket.Conn, findHandler FindHandler, session *r.Session) *Client {
