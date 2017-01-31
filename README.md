@@ -13,4 +13,10 @@ I wrote some notes on the course; they are located in
 
 ### Backend
 
+#### Configure database
+
+Install RethinkDB, and run the REQL commands listed in the `db/setup.reql` file.
+
+#### Run Go code
+
     cd go && make install && make start

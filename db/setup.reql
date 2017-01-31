@@ -1,0 +1,4 @@
+r.dbCreate("srchat")
+r.db("srchat").tableCreate("channels")
+r.db("srchat").tableCreate("users")
+r.db("srchat").tableCreate("messages")
