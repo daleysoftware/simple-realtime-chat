@@ -20,3 +20,12 @@ Install RethinkDB, and run the REQL commands listed in the `db/setup.reql` file.
 #### Run Go code
 
     cd go && make install && make start
+
+## Screenshot
+
+<img src="example.png"/>
+
+## TODO
+
+There are many backend pieces missing. The channel set and subscribe funcationality was added as a
+PoC for the backend, but there is still much to do.
