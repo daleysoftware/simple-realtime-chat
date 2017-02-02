@@ -15,7 +15,7 @@ I wrote some notes on the course; they are located in
 
 #### Configure database
 
-Install RethinkDB, and run the REQL commands listed in the `db/setup.reql` file.
+Install RethinkDB.
 
 #### Run Go code
 

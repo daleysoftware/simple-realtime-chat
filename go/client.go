@@ -3,6 +3,7 @@ package main
 import (
 	r "github.com/dancannon/gorethink"
 	"github.com/gorilla/websocket"
+	"log"
 )
 
 type FindHandler func(string) (Handler, bool)
@@ -41,6 +42,7 @@ func (client *Client) Read() {
 			break
 		}
 
+		log.Printf("Rx name:'%s' data:'%#v'", message.Name, message.Data)
 		if handler, found := client.findHandler(message.Name); found {
 			handler(client, message.Data)
 		}
@@ -49,11 +51,13 @@ func (client *Client) Read() {
 }
 
 func (client *Client) Write() {
-	for msg := range client.send {
-		if err := client.socket.WriteJSON(msg); err != nil {
+	for message := range client.send {
+		log.Printf("Tx name:'%s' data:'%#v'", message.Name, message.Data)
+		if err := client.socket.WriteJSON(message); err != nil {
 			break
 		}
 	}
+
 	client.socket.Close()
 }
 

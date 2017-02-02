@@ -26,12 +26,19 @@ func main() {
 		log.Panic(err.Error())
 	}
 
+	log.Println("Creating srchat database in RethinkDB...")
+	r.DBCreate("srchat").Exec(session)
+	r.DB("srchat").TableCreate("channels").Exec(session)
+	r.DB("srchat").TableCreate("messages").Exec(session)
+	r.DB("srchat").TableCreate("users").Exec(session)
+
 	router := NewRouter(session)
 
 	router.Handle("channel add", addChannel)
 	router.Handle("channel subscribe", subscribeChannel)
 	router.Handle("channel unsubscribe", unsubscribeChannel)
 
+	log.Println("Listening on port 4000...")
 	http.Handle("/", router)
 	http.ListenAndServe(":4000", nil)
 }

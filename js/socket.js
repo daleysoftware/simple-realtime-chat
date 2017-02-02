@@ -18,6 +18,7 @@ class Socket {
     }
 
     emit(name, data) {
+        console.log("Socket Tx:'" + name + "' data:'" + JSON.stringify(data) + "'");
         const message = JSON.stringify({name, data});
         this.ws.send(message);
     }
@@ -25,6 +26,8 @@ class Socket {
     message(e) {
         try {
             const message = JSON.parse(e.data);
+            console.log("Socket Rx:'" + message.name + "' data:'" + JSON.stringify(message.data) +
+                "'");
             this.ee.emit(message.name, message.data);
         }
         catch(err) {
