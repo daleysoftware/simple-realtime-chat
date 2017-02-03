@@ -142,8 +142,8 @@ func subscribeMessage(client *Client, data interface{}) {
 	result := make(chan r.ChangeResponse)
 
 	cursor, err := r.Table("messages").
-		//Filter(map[interface{}]interface{}{"channelId": channel.Id}).
-		//OrderBy(map[interface{}]interface{}{"index": "createdAt"}).
+		OrderBy(r.OrderByOpts{Index: r.Desc("createdAt")}).
+		Filter(r.Row.Field("channelId").Eq(channel.ChannelId)).
 		Changes(r.ChangesOpts{IncludeInitial: true}).
 		Run(client.session)
 

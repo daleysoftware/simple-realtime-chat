@@ -116,7 +116,7 @@
 			"importpath": "golang.org/x/crypto/pbkdf2",
 			"repository": "https://go.googlesource.com/crypto",
 			"vcs": "git",
-			"revision": "dc137beb6cce2043eb6b5f223ab8bf51c32459f4",
+			"revision": "bed12803fa9663d7aa2c2346b0c634ad2dcd43b7",
 			"branch": "master",
 			"path": "/pbkdf2",
 			"notests": true
@@ -125,7 +125,7 @@
 			"importpath": "golang.org/x/sys/unix",
 			"repository": "https://go.googlesource.com/sys",
 			"vcs": "git",
-			"revision": "d75a52659825e75fff6158388dddc6a5b04f9ba5",
+			"revision": "7a6e5648d140666db5d920909e082ca00a87ba2c",
 			"branch": "master",
 			"path": "/unix",
 			"notests": true

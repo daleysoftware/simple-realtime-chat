@@ -8,8 +8,8 @@ import (
 )
 
 type Channel struct {
-	Id   string `json:"id" gorethink:"id,omitempty"`
-	Name string `json:"name" gorethink:"name,omitempty"`
+	ChannelId string `json:"channelId" gorethink:"channelId,omitempty"`
+	Name      string `json:"name" gorethink:"name,omitempty"`
 }
 
 type User struct {
@@ -55,7 +55,11 @@ func main() {
 	router.Handle("user unsubscribe", unsubscribeUser)
 	router.Handle("user edit", editUser)
 
-	log.Println("Listening on port 4000...")
+	log.Println("Listening on port 5000...")
 	http.Handle("/", router)
-	http.ListenAndServe(":4000", nil)
+
+	err = http.ListenAndServe(":5000", nil)
+	if err != nil {
+		log.Panic(err.Error())
+	}
 }
