@@ -11,6 +11,7 @@ class App extends React.Component{
         super(props);
         this.state = {
             channels: [],
+            user: null,
             users: [],
             messages: [],
             activeChannel: {},
@@ -79,7 +80,7 @@ class App extends React.Component{
 
     addChannel(name){
         this.socket.emit('channel add', {name});
-   }
+    }
 
     setChannel(activeChannel){
         this.setState({activeChannel});

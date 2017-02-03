@@ -38,14 +38,18 @@ func (r *Router) FindHandler(msgName string) (Handler, bool) {
 
 func (e *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	socket, err := upgrader.Upgrade(w, r, nil)
-
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprint(w, err.Error())
 		return
 	}
 
-	client := NewClient(socket, e.FindHandler, e.session)
+	client, err := NewClient(socket, e.FindHandler, e.session)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, err.Error())
+		return
+	}
 
 	defer client.Close()
 	go client.Write()
