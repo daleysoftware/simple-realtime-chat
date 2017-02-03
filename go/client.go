@@ -10,7 +10,7 @@ import (
 type FindHandler func(string) (Handler, bool)
 
 type Client struct {
-	send         chan Message
+	send         chan Payload
 	socket       *websocket.Conn
 	findHandler  FindHandler
 	session      *r.Session
@@ -25,7 +25,7 @@ func (c *Client) NewStopChannel(stopKey int) chan bool {
 	return stop
 }
 
-type Message struct {
+type Payload struct {
 	Name string      `json:"name"`
 	Data interface{} `json:"data"`
 }
@@ -38,24 +38,24 @@ func (c *Client) StopForKey(key int) {
 }
 
 func (client *Client) Read() {
-	var message Message
+	var payload Payload
 	for {
-		if err := client.socket.ReadJSON(&message); err != nil {
+		if err := client.socket.ReadJSON(&payload); err != nil {
 			break
 		}
 
-		log.Printf("Rx name:'%s' data:'%#v'", message.Name, message.Data)
-		if handler, found := client.findHandler(message.Name); found {
-			handler(client, message.Data)
+		log.Printf("Rx name:'%s' data:'%#v'", payload.Name, payload.Data)
+		if handler, found := client.findHandler(payload.Name); found {
+			handler(client, payload.Data)
 		}
 	}
 	client.socket.Close()
 }
 
 func (client *Client) Write() {
-	for message := range client.send {
-		log.Printf("Tx name:'%s' data:'%#v'", message.Name, message.Data)
-		if err := client.socket.WriteJSON(message); err != nil {
+	for payload := range client.send {
+		log.Printf("Tx name:'%s' data:'%#v'", payload.Name, payload.Data)
+		if err := client.socket.WriteJSON(payload); err != nil {
 			break
 		}
 	}
@@ -92,7 +92,7 @@ func NewClient(socket *websocket.Conn, findHandler FindHandler, session *r.Sessi
 
 	return &Client{
 		user:         user,
-		send:         make(chan Message),
+		send:         make(chan Payload),
 		socket:       socket,
 		findHandler:  findHandler,
 		session:      session,

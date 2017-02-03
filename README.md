@@ -24,8 +24,3 @@ Install RethinkDB.
 ## Screenshot
 
 <img src="example.png"/>
-
-## TODO
-
-There are many backend pieces missing. The channel set and subscribe funcationality was added as a
-PoC for the backend, but there is still much to do.
